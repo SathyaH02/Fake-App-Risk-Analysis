@@ -1,31 +1,33 @@
-Fake App Detection & Risk Analysis Platform
+# Fake App Detection & Risk Analysis Platform
 
 A web-based system for analyzing Android applications from the Google Play Store to assess the risk of impersonation or fraudulent behavior, with a focus on UPI, banking, and payment-related applications.
+
 The platform supports both on-demand app analysis and a monitoring dashboard for flagged applications.
 
-Problem Statement
+---
+
+## Problem Statement
 
 Fake and impersonator Android applications frequently misuse brand names and visual identities to deceive users, leading to financial fraud and data theft. Manual identification of such applications is inefficient and does not scale.
 
 This project aims to automate the analysis of Play Store applications to detect impersonation signals and assign a meaningful risk level.
 
-Key Features
+---
 
-User-friendly app scanning using Play Store URLs or app names
+## Key Features
 
-No requirement to provide package names manually
+- User-friendly app scanning using Play Store URLs or app names
+- No requirement to provide package names manually
+- Ambiguity-safe resolution for generic or brand-level queries
+- Heuristic-based risk scoring pipeline
+- Separate modes for on-demand analysis and dashboard monitoring
+- Robust handling of invalid inputs and third-party API failures
+- Clean and professional web interface using Flask and Jinja templates
 
-Ambiguity-safe resolution for generic or brand-level queries
+---
 
-Heuristic-based risk scoring pipeline
+## System Architecture (High Level)
 
-Separate modes for on-demand analysis and dashboard monitoring
-
-Robust handling of invalid inputs and third-party API failures
-
-Clean and professional web interface using Flask and Jinja
-
-System Architecture (High Level)
 User Input (URL / App Name)
         |
 Package Resolution
@@ -40,100 +42,94 @@ Risk Scoring
         |
 Result Presentation (Web UI)
 
-Technology Stack
+---
 
-Backend: Python, Flask
+## Technology Stack
 
-Frontend: HTML, CSS, Jinja Templates
+- **Backend:** Python, Flask  
+- **Frontend:** HTML, CSS, Jinja Templates  
+- **Data Source:** Google Play Store (google-play-scraper)  
+- **Text Similarity:** RapidFuzz  
+- **Architecture:** Modular service-based design  
 
-Data Source: Google Play Store (via google-play-scraper)
+---
 
-Text Similarity: RapidFuzz
+## Project Structure
 
-Architecture: Modular service-based design
-
-Project Structure
 Fake-App-Detector/
 ├── app/
-│   ├── routes/        # Flask routes (scan, dashboard)
-│   ├── services/      # Ingestion, detection, scoring logic
-│   ├── templates/     # Jinja HTML templates
-│   └── static/        # UI assets
+│   ├── routes/        
+│   ├── services/      
+│   ├── templates/     
+│   └── static/        
 ├── data/
-│   ├── brands/        # Official brand references
-│   └── raw/           # Sample dataset for evaluation
+│   ├── brands/        
+│   └── raw/           
 ├── run.py
 ├── requirements.txt
 └── README.md
 
-Application Workflow
+---
 
-The user opens the Scan App page.
+## Application Workflow
 
-The user enters a Play Store URL or an app name.
+1. The user opens the Scan App page.
+2. The user enters a Play Store URL or an app name.
+3. If the input is ambiguous, the system presents multiple candidate apps.
+4. The selected application is analyzed using heuristic detection logic.
+5. A risk score and risk level are displayed.
 
-If the input is ambiguous, the system presents multiple candidate apps for selection.
+---
 
-The selected application is analyzed using heuristic detection logic.
+## Risk Levels
 
-A risk score and risk level are displayed to the user.
-
-Risk Levels
-
-Low Risk – Likely genuine application
-
-Medium Risk – Suspicious indicators detected
-
-High Risk – Strong impersonation or deception signals
+- **Low Risk** – Likely genuine application
+- **Medium Risk** – Suspicious indicators detected
+- **High Risk** – Strong impersonation or deception signals
 
 Risk scores are heuristic-based and intended to support analysis, not replace official app store moderation.
 
-Setup and Execution
-Install Dependencies
+---
+
+## Setup and Execution
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
+### Run the Application
 
-Run the Application
+```bash
 python run.py
+```
+### Access in Browser
 
-Access in Browser
 http://127.0.0.1:5000
 
-Example Inputs
+---
 
-Valid inputs:
+## Limitations
 
-Play Store application URLs
+- Detection logic is heuristic-based and not ML-trained
+- Depends on Play Store search result reliability
+- Supports Android applications only
 
-Specific application names (e.g., Google Pay, BHIM UPI)
+---
 
-Invalid or unsupported inputs are handled gracefully with user guidance.
+## Future Enhancements
 
-Limitations
+- Detailed explanation of detected risk signals
+- False-positive tracking and evaluation metrics
+- Automated report generation
+- Role-based access control (admin vs user)
+- Permission and SDK-based risk analysis
 
-Detection logic is heuristic-based and not ML-trained
+---
 
-Depends on Play Store search result reliability
+## Disclaimer
 
-Supports Android applications only
-
-Future Enhancements
-
-Detailed explanation of risk signals
-
-False-positive tracking and evaluation metrics
-
-Automated evidence and report generation
-
-Role-based access control (admin vs user)
-
-Permission and SDK-based risk analysis
-
-Academic and Resume Use
-
-This project is suitable for final-year academic submissions, hackathons, and internship or entry-level software roles.
-It demonstrates real-world problem solving, backend system design, defensive programming, and user-centric design.
-
-Disclaimer
-
-This project is an academic and research prototype.
+This project is an academic and research prototype.  
 It has no official association with Google, NPCI, PhonePe, Paytm, or any other brand.
+
+
