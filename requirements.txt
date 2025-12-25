@@ -1,0 +1,12 @@
+flask
+google-play-scraper
+rapidfuzz
+pillow
+imagehash
+python-dateutil
+scikit-learn
+numpy
+reportlab
+apscheduler
+loguru
+pytest

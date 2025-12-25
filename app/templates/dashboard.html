@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <h2>Flagged Applications</h2>
+  <p class="muted">
+    Apps detected as potentially impersonating or risky.
+  </p>
+
+  <table>
+    <tr>
+      <th>App Name</th>
+      <th>Brand</th>
+      <th>Risk</th>
+      <th>Score</th>
+    </tr>
+
+    {% for app in apps %}
+    <tr>
+      <td>{{ app.name }}</td>
+      <td>{{ app.brand }}</td>
+      <td>
+        {% if app.risk == "High Risk" %}
+          <span class="risk high">High</span>
+        {% elif app.risk == "Medium Risk" %}
+          <span class="risk medium">Medium</span>
+        {% else %}
+          <span class="risk low">Low</span>
+        {% endif %}
+      </td>
+      <td>{{ app.score }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

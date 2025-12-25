@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ app.name }}</h2>
+<p>Package: {{ app.package }}</p>
+<p>Developer: {{ app.developer }}</p>
+<p>Risk Score: {{ app.score }}</p>
+<p>Risk Level: {{ app.risk }}</p>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <h2>Scan a Play Store App</h2>
+  <p class="muted">
+    Paste a Play Store link or type an app name to check its risk level.
+  </p>
+
+  <form method="POST">
+    <input
+      class="input"
+      name="input_value"
+      placeholder="e.g. https://play.google.com/store/apps/details?id=com.phonepe.app"
+      required
+    >
+    <br><br>
+    <button class="btn" type="submit">Analyze App</button>
+  </form>
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+</div>
+
+{% if result %}
+<div class="card">
+  <h3>Analysis Result</h3>
+
+  <p><b>App Name:</b> {{ result.name }}</p>
+  <p><b>Package:</b> {{ result.package }}</p>
+  <p><b>Detected Brand:</b> {{ result.detected_brand }}</p>
+  <p><b>Risk Score:</b> {{ result.score }}</p>
+
+  {% if result.risk == "High Risk" %}
+    <span class="risk high">High Risk</span>
+  {% elif result.risk == "Medium Risk" %}
+    <span class="risk medium">Medium Risk</span>
+  {% else %}
+    <span class="risk low">Low Risk</span>
+  {% endif %}
+</div>
+{% endif %}
+
+{% if choices %}
+<div class="card">
+  <h3>Select the correct app</h3>
+  <p>Please choose the app you intended to analyze:</p>
+
+  <ul>
+    {% for c in choices %}
+      <li>
+        <form method="POST">
+          <input type="hidden" name="input_value" value="{{ c.package }}">
+          <button class="btn" type="submit">
+            {{ c.name }} <small>({{ c.developer }})</small>
+          </button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% endblock %}
